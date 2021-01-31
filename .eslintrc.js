@@ -10,5 +10,6 @@ module.exports = {
   rules: {
     "@typescript-eslint/camelcase": "warn",
     "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/no-explicit-any": "off",
   }
 };

@@ -11,7 +11,6 @@ import {
 import {
   fireEvent,
   getLovelace,
-  hasConfigOrEntityChanged,
   HomeAssistant,
   LovelaceCardEditor
 } from 'custom-card-helpers';
@@ -21,7 +20,7 @@ import './editor';
 import type {HAComfoAirMQTTConfig} from './types';
 import {CARD_VERSION} from './const';
 import {localize} from './localize/localize';
-import {Connection, HassEntities, HassEntity, subscribeEntities} from "home-assistant-js-websocket";
+import {hasChanged} from "./has-changed";
 
 console.info(
   `%c  HAComfoairMQTT Card \n%c  ${localize('common.version')} ${CARD_VERSION}    `,
@@ -64,7 +63,6 @@ export class HAComfoAirMQTTCard extends LitElement {
   @property({attribute: false}) public hass!: HomeAssistant;
   @internalProperty() private config!: HAComfoAirMQTTConfig;
 
-
   // https://lit-element.polymer-project.org/guide/properties#accessors-custom
   public setConfig(config: HAComfoAirMQTTConfig): void {
     // TODO Check for required fields and that they are of the proper format
@@ -88,7 +86,7 @@ export class HAComfoAirMQTTCard extends LitElement {
       return false;
     }
 
-    return hasConfigOrEntityChanged(this, changedProps, true);
+    return hasChanged(this, changedProps);
   }
 
   static styles = css`
