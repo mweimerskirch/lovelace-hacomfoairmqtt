@@ -231,38 +231,6 @@ export class HAComfoairMQTTCardEditor extends LitElement implements LovelaceCard
 
       <div class="values">
         <paper-dropdown-menu
-          label="CA350/550 fan speed supply sensor (required)"
-          @value-changed=${this._valueChanged}
-          .configValue=${'fanSpeedSupplySensor'}
-        >
-          <paper-listbox slot="dropdown-content" .selected=${sensors.indexOf(this._fanSpeedSupplySensor)}>
-            ${sensors.map(value => {
-              return html`
-                <paper-item>${value}</paper-item>
-              `;
-            })}
-          </paper-listbox>
-        </paper-dropdown-menu>
-      </div>
-
-      <div class="values">
-        <paper-dropdown-menu
-          label="CA350/550 fan speed exhaust sensor (required)"
-          @value-changed=${this._valueChanged}
-          .configValue=${'fanSpeedExhaustSensor'}
-        >
-          <paper-listbox slot="dropdown-content" .selected=${sensors.indexOf(this._fanSpeedExhaustSensor)}>
-            ${sensors.map(value => {
-              return html`
-                <paper-item>${value}</paper-item>
-              `;
-            })}
-          </paper-listbox>
-        </paper-dropdown-menu>
-      </div>
-
-      <div class="values">
-        <paper-dropdown-menu
           label="CA350/550 return air level sensor (required)"
           @value-changed=${this._valueChanged}
           .configValue=${'returnAirLevelSensor'}

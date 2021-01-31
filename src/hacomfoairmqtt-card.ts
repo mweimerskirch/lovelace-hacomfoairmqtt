@@ -53,8 +53,6 @@ export class HAComfoAirMQTTCard extends LitElement {
       filterStatusSensor: 'binary_sensor.ca350_filterstatus',
       bypassValveSensor: 'binary_sensor.ca350_bypass_valve',
       summerModeSensor: 'binary_sensor.ca350_summer_mode',
-      fanSpeedSupplySensor: 'sensor.ca350_fan_speed_supply',
-      fanSpeedExhaustSensor: 'sensor.ca350_fan_speed_exhaust',
       returnAirLevelSensor: 'sensor.ca350_return_air_level',
       supplyAirLevelSensor: 'sensor.ca350_supply_air_level',
       preheatingStatusSensor: 'binary_sensor.ca350_preheatingstatus',
@@ -237,7 +235,12 @@ export class HAComfoAirMQTTCard extends LitElement {
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      top: 86px;
+      top: 94px;
+    }
+
+    .speeds :first-child {
+      font-size: 140%;
+      margin-bottom: 5px;
     }
 
     mwc-button {
@@ -317,18 +320,12 @@ export class HAComfoAirMQTTCard extends LitElement {
               </div>
               <div class="speeds">
                 <div>
+                  <ha-icon icon="mdi:thermostat"></ha-icon>
                   ${this.config.climateEntity && this.hass.states[this.config.climateEntity] ? this.hass.states[this.config.climateEntity].attributes.temperature : '-'}
                   °C
                 </div>
                 <div>
                   <ha-icon icon="mdi:speedometer"></ha-icon>
-                  ${this.hass.states[this.config.fanSpeedSupplySensor] ? parseInt(this.hass.states[this.config.fanSpeedSupplySensor].state) : '-'}
-                  /
-                  ${this.hass.states[this.config.fanSpeedExhaustSensor] ? parseInt(this.hass.states[this.config.fanSpeedExhaustSensor].state) : '-'}
-                  rpm
-                </div>
-                <div>
-                  <ha-icon icon="mdi:fan"></ha-icon>
                   ${this.hass.states[this.config.supplyAirLevelSensor] ? parseInt(this.hass.states[this.config.supplyAirLevelSensor].state) + '%' : '-'}
                   ${
                     // Show return speed value only if it's different from the supply speed

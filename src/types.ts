@@ -17,8 +17,6 @@ export interface HAComfoAirMQTTConfig extends LovelaceCardConfig {
   filterStatusSensor: string;
   bypassValveSensor: string;
   summerModeSensor: string;
-  fanSpeedSupplySensor: string;
-  fanSpeedExhaustSensor: string;
   returnAirLevelSensor: string;
   supplyAirLevelSensor: string;
   preheatingStatusSensor: string;
