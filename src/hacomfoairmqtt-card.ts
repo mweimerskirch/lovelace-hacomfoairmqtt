@@ -285,6 +285,51 @@ export class HAComfoAirMQTTCard extends LitElement {
     `;
   }
 
+  protected renderTemperatures(): TemplateResult {
+    return html`
+      <div class="temperatures temperatures-in">
+        <div>
+          ${this.hass.states[this.config.outsideTempSensor] ? this.hass.states[this.config.outsideTempSensor].state + ' °C' : '-'}
+        </div>
+        <ha-icon icon="mdi:arrow-right-bold-outline"></ha-icon>
+        <div>
+          ${this.hass.states[this.config.supplyTempSensor] ? this.hass.states[this.config.supplyTempSensor].state + ' °C' : '-'}
+        </div>
+      </div>
+      <div class="temperatures temperatures-out">
+        <div>
+          ${this.hass.states[this.config.returnTempSensor] ? this.hass.states[this.config.returnTempSensor].state + ' °C' : '-'}
+        </div>
+        <ha-icon icon="mdi:arrow-left-bold-outline"></ha-icon>
+        <div>
+          ${this.hass.states[this.config.exhaustTempSensor] ? this.hass.states[this.config.exhaustTempSensor].state + ' °C' : '-'}
+        </div>
+      </div>`
+  }
+
+  protected renderThermostat(): TemplateResult {
+    return html`
+      <div>
+        <ha-icon icon="mdi:thermostat"></ha-icon>
+        ${this.config.climateEntity && this.hass.states[this.config.climateEntity] ? this.hass.states[this.config.climateEntity].attributes.temperature : '-'}
+        °C
+      </div>`
+  }
+
+  protected renderSpeed(): TemplateResult {
+    return html`
+      <div>
+        <ha-icon icon="mdi:speedometer"></ha-icon>
+        ${this.hass.states[this.config.supplyAirLevelSensor] ? parseInt(this.hass.states[this.config.supplyAirLevelSensor].state) + '%' : '-'}
+        ${
+          // Show return speed value only if it's different from the supply speed
+          this.hass.states[this.config.returnAirLevelSensor] && parseInt(this.hass.states[this.config.supplyAirLevelSensor].state) !== parseInt(this.hass.states[this.config.returnAirLevelSensor].state) ?
+            parseInt(this.hass.states[this.config.returnAirLevelSensor].state) + '%' :
+            ''
+        }
+      </div>`
+  }
+
   render(): TemplateResult {
     return html`
       <ha-card>
@@ -306,40 +351,10 @@ export class HAComfoAirMQTTCard extends LitElement {
             ></ha-svg-icon>
             <div class="house-container">
               ${this.renderFanButtons()}
-              <div class="temperatures temperatures-in">
-                <div>
-                  ${this.hass.states[this.config.outsideTempSensor] ? this.hass.states[this.config.outsideTempSensor].state + ' °C' : '-'}
-                </div>
-                <ha-icon icon="mdi:arrow-right-bold-outline"></ha-icon>
-                <div>
-                  ${this.hass.states[this.config.supplyTempSensor] ? this.hass.states[this.config.supplyTempSensor].state + ' °C' : '-'}
-                </div>
-              </div>
-              <div class="temperatures temperatures-out">
-                <div>
-                  ${this.hass.states[this.config.returnTempSensor] ? this.hass.states[this.config.returnTempSensor].state + ' °C' : '-'}
-                </div>
-                <ha-icon icon="mdi:arrow-left-bold-outline"></ha-icon>
-                <div>
-                  ${this.hass.states[this.config.exhaustTempSensor] ? this.hass.states[this.config.exhaustTempSensor].state + ' °C' : '-'}
-                </div>
-              </div>
+              ${this.renderTemperatures()}
               <div class="speeds">
-                <div>
-                  <ha-icon icon="mdi:thermostat"></ha-icon>
-                  ${this.config.climateEntity && this.hass.states[this.config.climateEntity] ? this.hass.states[this.config.climateEntity].attributes.temperature : '-'}
-                  °C
-                </div>
-                <div>
-                  <ha-icon icon="mdi:speedometer"></ha-icon>
-                  ${this.hass.states[this.config.supplyAirLevelSensor] ? parseInt(this.hass.states[this.config.supplyAirLevelSensor].state) + '%' : '-'}
-                  ${
-                    // Show return speed value only if it's different from the supply speed
-                    this.hass.states[this.config.returnAirLevelSensor] && parseInt(this.hass.states[this.config.supplyAirLevelSensor].state) !== parseInt(this.hass.states[this.config.returnAirLevelSensor].state) ?
-                      parseInt(this.hass.states[this.config.returnAirLevelSensor].state) + '%' :
-                      ''
-                  }
-                </div>
+                ${this.renderThermostat()}
+                ${this.renderSpeed()}
               </div>
             </div>
             <div class="icons">
