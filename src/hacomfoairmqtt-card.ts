@@ -3,7 +3,7 @@ import {
   customElement,
   html,
   internalProperty,
-  LitElement,
+  LitElement, property,
   PropertyValues,
   TemplateResult
 } from 'lit-element';
@@ -61,43 +61,9 @@ export class HAComfoAirMQTTCard extends LitElement {
 
   // TODO Add any properities that should cause your element to re-render here
   // https://lit-element.polymer-project.org/guide/properties
-  public hass!: HomeAssistant;
+  @property({attribute: false}) public hass!: HomeAssistant;
   @internalProperty() private config!: HAComfoAirMQTTConfig;
 
-  @internalProperty()
-  private _climateEntity?: HassEntity;
-
-  private _unsubscribeEntitites?: any;
-
-  connectedCallback(): void {
-    console.log('connectedCallback')
-    super.connectedCallback();
-    this.doSubscribeEntities();
-  }
-
-  public doSubscribeEntities(): void {
-    if (this.hass?.connection && !this._unsubscribeEntitites && this.isConnected) {
-      console.log(this.isConnected)
-      // @ts-ignore
-      this._unsubscribeEntitites = subscribeEntities(this.hass.connection, (entities) =>
-        this.entitiesUpdated(entities)
-      );
-    }
-  }
-
-  //Callback when hass-entity has changed
-  private entitiesUpdated(entities: HassEntities): void {
-    console.log('entitiesUpdated')
-    this._climateEntity = entities[this.config.climateEntity];
-  }
-
-  public disconnectedCallback(): void {
-    super.disconnectedCallback();
-    if (this._unsubscribeEntitites) {
-      this._unsubscribeEntitites();
-      this._unsubscribeEntitites = undefined;
-    }
-  }
 
   // https://lit-element.polymer-project.org/guide/properties#accessors-custom
   public setConfig(config: HAComfoAirMQTTConfig): void {
@@ -122,7 +88,7 @@ export class HAComfoAirMQTTCard extends LitElement {
       return false;
     }
 
-    return hasConfigOrEntityChanged(this, changedProps, false);
+    return hasConfigOrEntityChanged(this, changedProps, true);
   }
 
   static styles = css`
