@@ -545,6 +545,7 @@ found at http://polymer.github.io/PATENTS.txt
       bottom: 6px;
       width: 100%;
       display: flex;
+      border-top: 1px solid var(--primary-text-color);
     }
 
     .icons {
@@ -589,11 +590,12 @@ found at http://polymer.github.io/PATENTS.txt
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      top: 86px;
+      top: 94px;
     }
 
     .speeds :first-child {
-      font-size: 120%;
+      font-size: 140%;
+      margin-bottom: 5px;
     }
 
     mwc-button {

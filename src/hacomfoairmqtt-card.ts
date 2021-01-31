@@ -189,8 +189,14 @@ export class HAComfoAirMQTTCard extends LitElement {
     .house-container .fan-speeds {
       position: absolute;
       bottom: 6px;
-      width: 100%;
+      width: 90%;
       display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border-top: 1px solid var(--primary-text-color);
+      margin: 0 auto;
+      left: 0;
+      right: 0;
     }
 
     .icons {
@@ -219,11 +225,11 @@ export class HAComfoAirMQTTCard extends LitElement {
     }
 
     .temperatures-in {
-      top: 90px;
+      top: 88px;
     }
 
     .temperatures-out {
-      top: 125px;
+      top: 122px;
       flex-direction: row-reverse;
     }
 
@@ -235,7 +241,7 @@ export class HAComfoAirMQTTCard extends LitElement {
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      top: 94px;
+      top: 90px;
     }
 
     .speeds :first-child {
