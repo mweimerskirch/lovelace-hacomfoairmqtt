@@ -425,11 +425,9 @@ found at http://polymer.github.io/PATENTS.txt
 
         <div class="content">
           <div>
-            <ha-svg-icon
-              class="house"
-              viewBox="0 0 124 94"
-              path="m 62,2 60,30 v 60 H 2 V 32 Z"
-            ></ha-svg-icon>
+            <svg class="house" viewBox="0 0 124 94">
+              <g><path d="m 62,2 60,30 v 60 H 2 V 32 Z"></path></g>
+            </svg>
             <div class="house-container">
               ${this.renderFanButtons()}
               ${this.renderTemperatures()}
