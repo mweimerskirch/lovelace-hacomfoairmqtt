@@ -1,6 +1,55 @@
 {
   "common": {
     "version": "Versioun",
-    "invalid_configuration": "Ongëlteg Konfiguratioun"
+    "invalid_configuration": "Ongëlteg Konfiguratioun",
+    "missing_climate": "W.e.g. climateEntity uginn",
+    "entity_not_found": "Entitéit net fonnt"
+  },
+  "card": {
+    "target_temperature": "Zil-Temperatur",
+    "air_level": "Loftstuf",
+    "filter": "Filter",
+    "filter_ok": "Filter OK",
+    "filter_change": "Filter wiesselen",
+    "bypass": "Bypass",
+    "preheating": "Virhëtzen",
+    "season": "Saison",
+    "summer": "Summer",
+    "winter": "Wanter",
+    "transition": "Iwwergang",
+    "humidity": "Loftfiichtegkeet",
+    "air_flow": "Loftmass",
+    "power": "Leeschtung",
+    "fan_speed": "Ventilatiounsstuf"
+  },
+  "editor": {
+    "name": "Numm (optional)",
+    "climateEntity": "Klima-Entitéit (néideg, stéiert d'Ventilatiounsstuf)",
+    "temperatures": "Temperaturen",
+    "outsideTempSensor": "Baussenloft (an den Apparat)",
+    "supplyTempSensor": "Zouloft (an d'Zëmmeren)",
+    "returnTempSensor": "Ofloft (aus den Zëmmeren)",
+    "exhaustTempSensor": "Fortloft (eraus)",
+    "status": "Status",
+    "filterStatusSensor": "Filterstatus",
+    "bypassValveSensor": "Bypass-Klapp",
+    "summerModeSensor": "Summermodus / Saison",
+    "preheatingStatusSensor": "Virhëtzen",
+    "air": "Loftmass",
+    "supplyAirLevelSensor": "Zouloftstuf (%)",
+    "returnAirLevelSensor": "Ofloftstuf (%)",
+    "supplyAirFlowSensor": "Zouloftmass (m³/h)",
+    "exhaustAirFlowSensor": "Ofloftmass (m³/h)",
+    "extra": "Loftfiichtegkeet a Leeschtung",
+    "outsideHumiditySensor": "Loftfiichtegkeet dobaussen",
+    "insideHumiditySensor": "Loftfiichtegkeet bannen",
+    "powerSensor": "Stroumverbrauch"
+  },
+  "fan_mode": {
+    "off": "Aus",
+    "low": "Niddreg",
+    "medium": "Mëttel",
+    "high": "Héich",
+    "auto": "Auto"
   }
 }

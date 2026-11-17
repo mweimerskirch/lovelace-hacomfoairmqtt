@@ -1,6 +1,55 @@
 {
   "common": {
     "version": "Version",
-    "invalid_configuration": "Ungültige Konfiguration"
+    "invalid_configuration": "Ungültige Konfiguration",
+    "missing_climate": "Bitte climateEntity angeben",
+    "entity_not_found": "Entität nicht gefunden"
+  },
+  "card": {
+    "target_temperature": "Solltemperatur",
+    "air_level": "Luftstufe",
+    "filter": "Filter",
+    "filter_ok": "Filter OK",
+    "filter_change": "Filter wechseln",
+    "bypass": "Bypass",
+    "preheating": "Vorheizung",
+    "season": "Saison",
+    "summer": "Sommer",
+    "winter": "Winter",
+    "transition": "Übergang",
+    "humidity": "Luftfeuchtigkeit",
+    "air_flow": "Luftmenge",
+    "power": "Leistung",
+    "fan_speed": "Lüftungsstufe"
+  },
+  "editor": {
+    "name": "Name (optional)",
+    "climateEntity": "Klima-Entität (erforderlich, steuert die Lüftungsstufe)",
+    "temperatures": "Temperaturen",
+    "outsideTempSensor": "Außenluft (ins Gerät)",
+    "supplyTempSensor": "Zuluft (in die Räume)",
+    "returnTempSensor": "Abluft (aus den Räumen)",
+    "exhaustTempSensor": "Fortluft (nach draußen)",
+    "status": "Status",
+    "filterStatusSensor": "Filterstatus",
+    "bypassValveSensor": "Bypassklappe",
+    "summerModeSensor": "Sommerbetrieb / Saison",
+    "preheatingStatusSensor": "Vorheizung",
+    "air": "Luftmenge",
+    "supplyAirLevelSensor": "Zuluftstufe (%)",
+    "returnAirLevelSensor": "Abluftstufe (%)",
+    "supplyAirFlowSensor": "Zuluftmenge (m³/h)",
+    "exhaustAirFlowSensor": "Abluftmenge (m³/h)",
+    "extra": "Luftfeuchtigkeit und Leistung",
+    "outsideHumiditySensor": "Luftfeuchtigkeit außen",
+    "insideHumiditySensor": "Luftfeuchtigkeit innen",
+    "powerSensor": "Leistungsaufnahme"
+  },
+  "fan_mode": {
+    "off": "Aus",
+    "low": "Niedrig",
+    "medium": "Mittel",
+    "high": "Hoch",
+    "auto": "Auto"
   }
 }

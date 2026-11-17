@@ -1,6 +1,55 @@
 {
   "common": {
     "version": "Version",
-    "invalid_configuration": "Configuration invalide"
+    "invalid_configuration": "Configuration invalide",
+    "missing_climate": "Veuillez indiquer climateEntity",
+    "entity_not_found": "Entité introuvable"
+  },
+  "card": {
+    "target_temperature": "Température de consigne",
+    "air_level": "Niveau d'air",
+    "filter": "Filtre",
+    "filter_ok": "Filtre OK",
+    "filter_change": "Remplacer le filtre",
+    "bypass": "Bypass",
+    "preheating": "Préchauffage",
+    "season": "Saison",
+    "summer": "Été",
+    "winter": "Hiver",
+    "transition": "Mi-saison",
+    "humidity": "Humidité",
+    "air_flow": "Débit d'air",
+    "power": "Puissance",
+    "fan_speed": "Vitesse de ventilation"
+  },
+  "editor": {
+    "name": "Nom (facultatif)",
+    "climateEntity": "Entité climat (obligatoire, commande la vitesse)",
+    "temperatures": "Températures",
+    "outsideTempSensor": "Air extérieur (entrant dans l'appareil)",
+    "supplyTempSensor": "Air soufflé (vers les pièces)",
+    "returnTempSensor": "Air repris (des pièces)",
+    "exhaustTempSensor": "Air rejeté (vers l'extérieur)",
+    "status": "État",
+    "filterStatusSensor": "État du filtre",
+    "bypassValveSensor": "Clapet bypass",
+    "summerModeSensor": "Mode été / saison",
+    "preheatingStatusSensor": "Préchauffage",
+    "air": "Débit d'air",
+    "supplyAirLevelSensor": "Niveau air soufflé (%)",
+    "returnAirLevelSensor": "Niveau air repris (%)",
+    "supplyAirFlowSensor": "Débit air soufflé (m³/h)",
+    "exhaustAirFlowSensor": "Débit air repris (m³/h)",
+    "extra": "Humidité et puissance",
+    "outsideHumiditySensor": "Humidité extérieure",
+    "insideHumiditySensor": "Humidité intérieure",
+    "powerSensor": "Consommation"
+  },
+  "fan_mode": {
+    "off": "Arrêt",
+    "low": "Bas",
+    "medium": "Moyen",
+    "high": "Élevé",
+    "auto": "Auto"
   }
 }

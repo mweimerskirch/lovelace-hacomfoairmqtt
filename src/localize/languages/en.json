@@ -1,6 +1,56 @@
 {
   "common": {
     "version": "Version",
-    "invalid_configuration": "Invalid configuration"
+    "invalid_configuration": "Invalid configuration",
+    "missing_climate": "Please set climateEntity",
+    "entity_not_found": "Entity not found"
+  },
+  "card": {
+    "description": "Shows a Zehnder ComfoAir ventilation unit (hacomfoairmqtt, ComfoClime, ...) as a house diagram with fan speed buttons.",
+    "target_temperature": "Target temperature",
+    "air_level": "Air level",
+    "filter": "Filter",
+    "filter_ok": "Filter OK",
+    "filter_change": "Replace filter",
+    "bypass": "Bypass",
+    "preheating": "Preheating",
+    "season": "Season",
+    "summer": "Summer",
+    "winter": "Winter",
+    "transition": "Transition",
+    "humidity": "Humidity",
+    "air_flow": "Air flow",
+    "power": "Power",
+    "fan_speed": "Fan speed"
+  },
+  "editor": {
+    "name": "Name (optional)",
+    "climateEntity": "Climate entity (required, controls the fan speed)",
+    "temperatures": "Temperatures",
+    "outsideTempSensor": "Outside air (entering the unit)",
+    "supplyTempSensor": "Supply air (into the rooms)",
+    "returnTempSensor": "Return / extract air (from the rooms)",
+    "exhaustTempSensor": "Exhaust air (leaving the house)",
+    "status": "Status",
+    "filterStatusSensor": "Filter status",
+    "bypassValveSensor": "Bypass valve",
+    "summerModeSensor": "Summer mode / season",
+    "preheatingStatusSensor": "Preheating",
+    "air": "Air flow",
+    "supplyAirLevelSensor": "Supply air level (%)",
+    "returnAirLevelSensor": "Return air level (%)",
+    "supplyAirFlowSensor": "Supply air flow (m³/h)",
+    "exhaustAirFlowSensor": "Exhaust air flow (m³/h)",
+    "extra": "Humidity and power",
+    "outsideHumiditySensor": "Outside humidity",
+    "insideHumiditySensor": "Inside humidity",
+    "powerSensor": "Power consumption"
+  },
+  "fan_mode": {
+    "off": "Off",
+    "low": "Low",
+    "medium": "Medium",
+    "high": "High",
+    "auto": "Auto"
   }
 }

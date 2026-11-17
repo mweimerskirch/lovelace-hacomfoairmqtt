@@ -1,31 +1,27 @@
-import * as en from './languages/en.json';
-import * as de from './languages/de.json';
-import * as fr from './languages/fr.json';
-import * as lb from './languages/lb.json';
+import de from './languages/de.json';
+import en from './languages/en.json';
+import fr from './languages/fr.json';
+import lb from './languages/lb.json';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const languages: any = {
-  en,
-  fr,
-  de,
-  lb,
-};
+const languages: Record<string, unknown> = { en, de, fr, lb };
 
-export function localize(string: string, search = '', replace = ''): string {
-  const lang = (localStorage.getItem('selectedLanguage') || 'en').replace(/['"]+/g, '').replace('-', '_');
+let currentLanguage = 'en';
 
-  let translated: string;
-
-  try {
-    translated = string.split('.').reduce((o, i) => o[i], languages[lang]);
-  } catch (e) {
-    translated = string.split('.').reduce((o, i) => o[i], languages['en']);
+/** Called by the card with hass.locale.language so that labels follow the user's profile language. */
+export function setLanguage(language: string | undefined): void {
+  if (language) {
+    currentLanguage = language;
   }
+}
 
-  if (translated === undefined) translated = string.split('.').reduce((o, i) => o[i], languages['en']);
+function lookup(lang: string, key: string): string | undefined {
+  const value = key
+    .split('.')
+    .reduce<unknown>((o, k) => (o && typeof o === 'object' ? (o as Record<string, unknown>)[k] : undefined), languages[lang]);
+  return typeof value === 'string' ? value : undefined;
+}
 
-  if (search !== '' && replace !== '') {
-    translated = translated.replace(search, replace);
-  }
-  return translated;
+export function localize(key: string, language?: string): string {
+  const lang = (language || currentLanguage).toLowerCase();
+  return lookup(lang, key) ?? lookup(lang.split(/[-_]/)[0], key) ?? lookup('en', key) ?? key;
 }
