@@ -1,5 +1,5 @@
 {
-    "name": "HAComfoairMQTT-Card",
-    "render_readme": true,
-    "filename": "hacomfoairmqtt-card.js"
+  "name": "HAComfoairMQTT Card",
+  "filename": "hacomfoairmqtt-card.js",
+  "render_readme": true
 }
