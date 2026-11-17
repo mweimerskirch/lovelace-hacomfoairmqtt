@@ -25,7 +25,7 @@ install "HAComfoairMQTT Card".
    "JavaScript module".
 3. Reload the browser (on the companion app: Settings → Companion app → Debugging → Reset frontend cache).
 
-After updating the file, change the resource URL (for example `...hacomfoairmqtt-card.js?v=1.0.0`) or clear the
+After updating the file, change the resource URL (for example `...hacomfoairmqtt-card.js?v=1.0.1`) or clear the
 browser cache, otherwise the old version stays cached.
 
 ## Configuration
@@ -107,7 +107,7 @@ Your existing card configuration keeps working unchanged, including the old enti
 editor wrote (`fanSpeedSupplySensor`, `fanSpeedExhaustSensor`, `test_gui`) are ignored.
 
 1. Replace the JS file (or update through HACS).
-2. Change the resource URL so browsers load the new file, e.g. `/local/lovelace-hacomfoairmqtt/hacomfoairmqtt-card.js?v=1.0.0`.
+2. Change the resource URL so browsers load the new file, e.g. `/local/lovelace-hacomfoairmqtt/hacomfoairmqtt-card.js?v=1.0.1`.
 3. Reload the browser; in the companion app use Settings → Companion app → Troubleshooting → Reset frontend cache.
    If you still see hourglass icons, the old version is still cached.
 
@@ -128,6 +128,12 @@ npm start       # rebuild on change and serve dist/ on http://localhost:5000
 committing.
 
 ## Changelog
+
+### 1.0.1
+
+- The fan speed buttons show the selected speed immediately. The button pulses until the device reports the new
+  speed (integrations that poll the device can take a while), and falls back to the reported speed after 90 s or if
+  the service call fails.
 
 ### 1.0.0
 

@@ -31,6 +31,9 @@ const FAN_MODE_ICONS: Record<string, string> = {
 };
 
 // 'full' = hacomfoairmqtt's non-binary filter status ('Ok' / 'Full')
+/** How long a requested fan mode is shown before falling back to the reported one (the device is polled). */
+const PENDING_TIMEOUT_MS = 90_000;
+
 const ACTIVE_STATES = ['on', 'true', 'open', 'yes', 'active', 'full'];
 const UNAVAILABLE_STATES = ['unavailable', 'unknown'];
 
@@ -65,6 +68,9 @@ function season(stateObj: HassEntity): Season | undefined {
 export class HAComfoAirMQTTCard extends LitElement {
   @property({ attribute: false }) public hass?: HomeAssistant;
   @state() private config?: HAComfoAirMQTTConfig;
+  /** Fan mode that was just requested but is not yet reported by the climate entity (shown optimistically). */
+  @state() private pendingFanMode?: string;
+  private pendingTimer?: number;
 
   public static getStubConfig(hass?: HomeAssistant): Omit<HAComfoAirMQTTConfig, 'type'> {
     return detectConfig(hass);
@@ -139,7 +145,7 @@ export class HAComfoAirMQTTCard extends LitElement {
     if (!this.config) {
       return false;
     }
-    if (changedProps.has('config')) {
+    if (changedProps.has('config') || changedProps.has('pendingFanMode')) {
       return true;
     }
     const oldHass = changedProps.get('hass') as HomeAssistant | undefined;
@@ -180,8 +186,44 @@ export class HAComfoAirMQTTCard extends LitElement {
     this.dispatchEvent(new CustomEvent('hass-more-info', { detail: { entityId }, bubbles: true, composed: true }));
   }
 
+  protected willUpdate(changedProps: PropertyValues): void {
+    super.willUpdate(changedProps);
+    // The device confirmed the requested mode: stop showing it as pending
+    if (this.pendingFanMode && this.climateState()?.attributes.fan_mode === this.pendingFanMode) {
+      this.clearPendingFanMode();
+    }
+  }
+
+  public disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this.clearPendingFanMode();
+  }
+
+  private climateState(): HassEntity | undefined {
+    return this.config ? this.hass?.states[this.config.climateEntity] : undefined;
+  }
+
+  private clearPendingFanMode(): void {
+    window.clearTimeout(this.pendingTimer);
+    this.pendingTimer = undefined;
+    this.pendingFanMode = undefined;
+  }
+
   private setFanMode(mode: string): void {
-    this.hass?.callService('climate', 'set_fan_mode', { entity_id: this.config!.climateEntity, fan_mode: mode });
+    if (!this.hass || !this.config) {
+      return;
+    }
+    if (this.climateState()?.attributes.fan_mode === mode) {
+      this.clearPendingFanMode();
+    } else {
+      // Show the new mode right away; it pulses until the entity reports it (or falls back after the timeout)
+      window.clearTimeout(this.pendingTimer);
+      this.pendingFanMode = mode;
+      this.pendingTimer = window.setTimeout(() => this.clearPendingFanMode(), PENDING_TIMEOUT_MS);
+    }
+    this.hass
+      .callService('climate', 'set_fan_mode', { entity_id: this.config.climateEntity, fan_mode: mode })
+      .catch(() => this.clearPendingFanMode());
   }
 
   /** A temperature that opens its more-info dialog when clicked. */
@@ -317,12 +359,13 @@ export class HAComfoAirMQTTCard extends LitElement {
     const modes: string[] = Array.isArray(climate.attributes.fan_modes)
       ? climate.attributes.fan_modes
       : ['off', 'low', 'medium', 'high'];
-    const current = climate.attributes.fan_mode;
+    const current = this.pendingFanMode ?? climate.attributes.fan_mode;
     return html`<div class="fan-modes" role="group" aria-label=${localize('card.fan_speed')}>
       ${modes.map((mode) => {
         const label = localize(`fan_mode.${mode}`) === `fan_mode.${mode}` ? mode : localize(`fan_mode.${mode}`);
         return html`<button
-          class="fan-mode"
+          class="fan-mode ${this.pendingFanMode === mode ? 'pending' : ''}"
+          aria-busy=${this.pendingFanMode === mode ? 'true' : 'false'}
           aria-pressed=${current === mode ? 'true' : 'false'}
           title=${label}
           aria-label=${label}
@@ -756,6 +799,15 @@ export class HAComfoAirMQTTCard extends LitElement {
     .fan-mode:disabled {
       opacity: 0.5;
     }
+    /* Requested but not yet confirmed by the device */
+    .fan-mode.pending {
+      animation: cac-pulse 1.2s ease-in-out infinite;
+    }
+    @keyframes cac-pulse {
+      50% {
+        opacity: 0.45;
+      }
+    }
 
     .extras {
       display: flex;
@@ -799,6 +851,10 @@ export class HAComfoAirMQTTCard extends LitElement {
     @media (prefers-reduced-motion: reduce) {
       * {
         transition: none !important;
+      }
+      .fan-mode.pending {
+        animation: none;
+        opacity: 0.6;
       }
     }
   `;
